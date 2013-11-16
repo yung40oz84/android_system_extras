@@ -79,6 +79,13 @@ LOCAL_SHARED_LIBRARIES := \
     libselinux \
     libsparse \
     libz
+
+# Some MMCs have VERY slow secure erase - use
+#standard erase instead
+ifeq ($(BOARD_SUPPRESS_SECURE_ERASE),true)
+    LOCAL_CFLAGS += -DSUPPRESS_SECURE_ERASE
+endif
+
 include $(BUILD_SHARED_LIBRARY)
 
 
@@ -88,6 +95,13 @@ LOCAL_MODULE := libext4_utils_static
 LOCAL_STATIC_LIBRARIES += \
     libselinux \
     libsparse_static
+
+# Some MMCs have VERY slow secure erase - use
+#standard erase instead
+ifeq ($(BOARD_SUPPRESS_SECURE_ERASE),true)
+    LOCAL_CFLAGS += -DSUPPRESS_SECURE_ERASE
+endif
+
 include $(BUILD_STATIC_LIBRARY)
 
 
